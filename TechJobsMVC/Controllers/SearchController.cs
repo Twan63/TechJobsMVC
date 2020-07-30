@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TechJobsMVC.Models;
+using TechJobsMVC.Data;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,19 +20,27 @@ namespace TechJobsMVC.Controllers
         }
 
         // TODO #3: Create an action method to process a search request and render the updated search view. 
-        public IActionResult Results(string searchTerm)
+        public IActionResult Results(string searchType, string searchTerm)
         {
+
+            List<Job> floopSearch;
+               
             if (string.IsNullOrEmpty(searchTerm))
             {
-                var AllJob = TechJobsMVC.Data.JobData.FindAll();
+               floopSearch  = JobData.FindAll();
+                
 
             }
             else
-            { 
-                
+            {
+                floopSearch = JobData.FindByColumnAndValue(searchType, searchTerm);
+
             }
-            
-            return View();
+
+            ViewBag.Columns = ListController.ColumnChoices;
+
+            ViewBag.Jobs = floopSearch;            
+            return View("Index");
         }
     }
 }
