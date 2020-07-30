@@ -18,5 +18,19 @@ namespace TechJobsMVC.Controllers
         }
 
         // TODO #3: Create an action method to process a search request and render the updated search view. 
+        public IActionResult Results(string searchTerm)
+        {
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                var AllJob = TechJobsMVC.Data.JobData.FindAll();
+
+            }
+            else
+            { 
+                
+            }
+            
+            return View();
+        }
     }
 }
